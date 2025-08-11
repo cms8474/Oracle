@@ -9,7 +9,7 @@
 <keyObject>8D329815-2C41-8367-7732-31D4B47E8CFE</keyObject>
 <referredKeyID>8D329815-2C41-8367-7732-31D4B47E8CFE</referredKeyID>
 <mandatory>false</mandatory>
-<refColNames>Column_1a_no</refColNames>
+<refColNames>a_no</refColNames>
 <transferable>true</transferable>
 <rely>false</rely>
 <columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
