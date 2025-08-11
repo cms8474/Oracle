@@ -139,13 +139,20 @@ INSERT INTO bank_transaction (t_no, t_a_no, t__dist, t_amount, t_datetime) VALUE
 -- ■■■■■■■■■■■■■■■■■■■■■■■■■■
 -- ■■■■■■■■■■■■■■■■■■■■■■■■■■
 -- ■■■■■■■■■■■■■■■■■■■■■■■■■■
-
+☞실습6-6.다음데이터를조회하시오. 
+--> 모든고객의고객번호,이름,연락처,계좌번호,계좌상품명,현재잔액을조회하시오. 
 select c_no, c_name, c_phone, a_no, a_item_name, a_balance
     from bank_customer c
     join bank_account a on c.c_no = a.a_c_no;
     
+--> 이순신고객명으로 모든거래내역중 거래구분,거래금액,거래날짜 를조회하시오. 
+
+
+--> 개인고객중 현재잔액이가장큰 고객의 
+-->주민번호,고객명,계좌번호,현재잔액,계좌개설일을조회하시오.
+
+    
 /*거래구분, 거래금액, 거래날짜*/
-select 
 
 
 
