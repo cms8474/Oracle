@@ -3,14 +3,17 @@
 --   사이트:      Oracle Database 11g
 --   유형:      Oracle Database 11g
 
-
-
+/*
+drop table bank_account;
+drop table bank_customer;
+drop table bank_transaction;
+*/
 -- predefined type, no DDL - MDSYS.SDO_GEOMETRY
 
 -- predefined type, no DDL - XMLTYPE
 
 CREATE TABLE bank_account (
-    column_1a_no CHAR(11 BYTE) NOT NULL,
+    a_no CHAR(11 BYTE) NOT NULL,
     a_item_dist  CHAR(2 BYTE) NOT NULL,
     a_item_name  VARCHAR2(20) NOT NULL,
     a_c_no       VARCHAR2(14),
@@ -18,7 +21,7 @@ CREATE TABLE bank_account (
     a_open_date  DATE NOT NULL
 );
 
-ALTER TABLE bank_account ADD CONSTRAINT bank_account_pk PRIMARY KEY ( column_1a_no );
+ALTER TABLE bank_account ADD CONSTRAINT bank_account_pk PRIMARY KEY ( a_no );
 
 CREATE TABLE bank_customer (
     c_no    VARCHAR2(14 BYTE) NOT NULL,
@@ -47,7 +50,7 @@ ALTER TABLE bank_account
 --  ERROR: FK name length exceeds maximum allowed length(30) 
 ALTER TABLE bank_transaction
     ADD CONSTRAINT bank_transaction_bank_account_fk FOREIGN KEY ( t_a_no )
-        REFERENCES bank_account ( column_1a_no );
+        REFERENCES bank_account ( a_no );
 
 CREATE SEQUENCE bank_transaction_t_no_seq START WITH 1 NOCACHE ORDER;
 
@@ -104,3 +107,47 @@ END;
 -- 
 -- ERRORS                                   1
 -- WARNINGS                                 0
+
+
+-- ■■■■■■■■■■■■■■■■■■■■■■■■■■
+-- ■■■■■■■■■■■■■■■■■■■■■■■■■■
+-- ■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+INSERT INTO BANK_CUSTOMER (C_NO, C_NAME, C_DIST, C_PHONE, C_ADDR) VALUES ('730423-1000001', '김유신', 1, '010-1234-1001', '경남 김해시');
+INSERT INTO BANK_CUSTOMER (C_NO, C_NAME, C_DIST, C_PHONE, C_ADDR) VALUES ('730423-1000002', '김춘추', 1, '010-1234-1002', '경남 경주시');
+INSERT INTO BANK_CUSTOMER (C_NO, C_NAME, C_DIST, C_PHONE, C_ADDR) VALUES ('750423-1000003', '장보고', 1, '010-1234-1003', '전남 완도군');
+INSERT INTO BANK_CUSTOMER (C_NO, C_NAME, C_DIST, C_PHONE, C_ADDR) VALUES ('102-12-51094', '(주)정보산업', 2, '051-500-1004', '부산시 부산진구');
+INSERT INTO BANK_CUSTOMER (C_NO, C_NAME, C_DIST, C_PHONE, C_ADDR) VALUES ('930423-1000005', '이순신', 1, '010-1234-1005', '서울 종로구');
+
+INSERT INTO bank_account (a_no, a_item_dist, a_item_name, a_c_no, a_balance, a_open_date) VALUES ('101-11-1001', 'S1', '자유저축예금', '730423-1000001', 1550000, TO_DATE('2011-04-11', 'YYYY-MM-DD'));
+INSERT INTO bank_account (a_no, a_item_dist, a_item_name, a_c_no, a_balance, a_open_date) VALUES ('101-11-1002', 'S1', '자유저축예금', '930423-1000005', 260000, TO_DATE('2011-05-12', 'YYYY-MM-DD'));
+INSERT INTO bank_account (a_no, a_item_dist, a_item_name, a_c_no, a_balance, a_open_date) VALUES ('101-11-1003', 'S1', '자유저축예금', '750423-1000003', 75000, TO_DATE('2011-06-13', 'YYYY-MM-DD'));
+INSERT INTO bank_account (a_no, a_item_dist, a_item_name, a_c_no, a_balance, a_open_date) VALUES ('101-12-1001', 'S2', '기업전용예금', '102-12-51094', 15000000, TO_DATE('2011-07-14', 'YYYY-MM-DD'));
+INSERT INTO bank_account (a_no, a_item_dist, a_item_name, a_c_no, a_balance, a_open_date) VALUES ('101-13-1001', 'S3', '정기저축예금', '730423-1000002', 1200000, TO_DATE('2011-08-15', 'YYYY-MM-DD'));
+
+DROP SEQUENCE bank_transaction_t_no_seq;
+CREATE SEQUENCE bank_transaction_t_no_seq START WITH 1 NOCACHE ORDER;
+
+INSERT INTO bank_transaction (t_no, t_a_no, t__dist, t_amount, t_datetime) VALUES (bank_transaction_t_no_seq.NEXTVAL, '101-11-1001', 1, 50000, TO_DATE('2023-01-01 13:15:10', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO bank_transaction (t_no, t_a_no, t__dist, t_amount, t_datetime) VALUES (bank_transaction_t_no_seq.NEXTVAL, '101-12-1001', 2, 1000000, TO_DATE('2023-01-02 13:15:12', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO bank_transaction (t_no, t_a_no, t__dist, t_amount, t_datetime) VALUES (bank_transaction_t_no_seq.NEXTVAL, '101-11-1002', 3, 260000, TO_DATE('2023-01-03 13:15:14', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO bank_transaction (t_no, t_a_no, t__dist, t_amount, t_datetime) VALUES (bank_transaction_t_no_seq.NEXTVAL, '101-11-1002', 2, 100000, TO_DATE('2023-01-04 13:15:16', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO bank_transaction (t_no, t_a_no, t__dist, t_amount, t_datetime) VALUES (bank_transaction_t_no_seq.NEXTVAL, '101-11-1003', 3, 75000, TO_DATE('2023-01-05 13:15:18', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO bank_transaction (t_no, t_a_no, t__dist, t_amount, t_datetime) VALUES (bank_transaction_t_no_seq.NEXTVAL, '101-11-1001', 1, 150000, TO_DATE('2023-01-05 13:15:28', 'YYYY-MM-DD HH24:MI:SS'));
+
+
+-- ■■■■■■■■■■■■■■■■■■■■■■■■■■
+-- ■■■■■■■■■■■■■■■■■■■■■■■■■■
+-- ■■■■■■■■■■■■■■■■■■■■■■■■■■
+
+select c_no, c_name, c_phone, a_no, a_item_name, a_balance
+    from bank_customer c
+    join bank_account a on c.c_no = a.a_c_no;
+    
+/*거래구분, 거래금액, 거래날짜*/
+select 
+
+
+
+
+
