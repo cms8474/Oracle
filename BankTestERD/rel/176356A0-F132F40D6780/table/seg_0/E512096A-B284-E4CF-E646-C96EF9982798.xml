@@ -12,7 +12,9 @@
 <createdBy>GGG</createdBy>
 <createdTime>2025-08-13 00:17:33 UTC</createdTime>
 <ownerDesignName>BankTestERD</ownerDesignName>
-<use>0</use>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementColumn>true</autoIncrementColumn>
 <identityColumn>true</identityColumn>
